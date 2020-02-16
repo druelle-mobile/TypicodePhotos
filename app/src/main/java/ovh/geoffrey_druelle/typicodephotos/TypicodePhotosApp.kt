@@ -2,7 +2,7 @@ package ovh.geoffrey_druelle.typicodephotos
 
 import android.app.Application
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Build
 import com.facebook.stetho.BuildConfig
 import com.facebook.stetho.Stetho
@@ -35,11 +35,13 @@ class TypicodePhotosApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@TypicodePhotosApp)
-            modules(listOf(
-                databaseModules,
-                networkModules,
-                viewModelModules
-            ))
+            modules(
+                listOf(
+                    networkModules,
+                    databaseModules,
+                    viewModelModules
+                )
+            )
         }
     }
 
@@ -51,7 +53,7 @@ class TypicodePhotosApp: Application() {
         try {
             val packageInfo = this.packageManager.getPackageInfo(packageName, 0)
             return packageInfo.versionName
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: NameNotFoundException) {
             e.printStackTrace()
             Timber.d(e)
         }
