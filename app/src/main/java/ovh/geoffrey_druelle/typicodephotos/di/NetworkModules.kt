@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 val networkModules = module {
     single { Cache(androidApplication().cacheDir, 20L * 1024 * 1024) }
-    single(named("okhtppe")) { provideOkHttpClient(get()) }
+    single(named("okhttp")) { provideOkHttpClient(get()) }
     single(named("retrofit")) { provideRetrofitClient(get(named("okhttp"))) }
     single(named("api")) { provideApiService(get(named("retrofit"))) }
 }
@@ -29,11 +29,11 @@ fun provideOkHttpClient(cache: Cache): OkHttpClient {
         writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
         readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
         retryOnConnectionFailure(true)
-        addInterceptor(ApiInterceptor())
+        addInterceptor(apiInterceptor())
     }.build()
 }
 
-fun ApiInterceptor() = Interceptor { chain ->
+fun apiInterceptor() = Interceptor { chain ->
     chain.proceed(
         chain.request().newBuilder()
             .apply {
