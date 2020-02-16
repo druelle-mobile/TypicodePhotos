@@ -41,10 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 R.id.splashScreenFragment -> binding.toolbar.hide()
                 R.id.listFragment -> {
                     binding.toolbar.show()
-                }
-                R.id.detailsFragment -> {
-                    binding.toolbar.show()
-                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                    binding.toolbar.title = getString(R.string.photos_list)
                 }
             }
         }
