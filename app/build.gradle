@@ -1,35 +1,112 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
     defaultConfig {
         applicationId "ovh.geoffrey_druelle.typicodephotos"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode version_code
+        versionName version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "Typicode Photos"
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "Typicode Photos DEV"
         }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+//        abortOnError false
+        disable 'GoogleAppIndexingWarning'
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // Support
+    implementation deps.support.app_compat
+    implementation deps.support.core_ktx
+    implementation deps.support.preference
+    implementation deps.support.material
+    implementation deps.support.constraint
+    implementation deps.support.gson
+    implementation deps.support.swipe
+
+    // Kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
+
+    // Android Architecture Components
+    // Navigation
+    implementation deps.navigation.ui
+    implementation deps.navigation.fragment
+    // Room
+    implementation deps.room.runtime
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    kapt deps.room.compiler
+    implementation deps.room.ktx
+    // LiveData & ViewModel
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.viewmodel
+
+    // Retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+
+    // Koin
+    implementation deps.koin.core
+    implementation deps.koin.android
+    implementation deps.koin.scope
+    implementation deps.koin.viewmodel
+
+    // Stetho
+    implementation deps.stetho
+
+    // Picasso
+    implementation deps.picasso
+
+    // Timber
+    implementation deps.timber
+
+    // EasyPermissions
+    implementation deps.easy_permissions
+
+    // SDP & SSP
+    implementation deps.sdp
+    implementation deps.ssp
+
+    // Tests
+    testImplementation deps.koin.test
+    testImplementation deps.junit.junit
+    testImplementation deps.robolectric
+    testImplementation deps.core_testing
+    androidTestImplementation deps.junit.xjunit
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.test_runner
 }
