@@ -22,14 +22,5 @@
         android:id="@+id/listFragment"
         android:name="ovh.geoffrey_druelle.typicodephotos.ui.fragment.list.ListFragment"
         android:label="list_fragment"
-        tools:layout="@layout/list_fragment" >
-        <action
-            android:id="@+id/action_listFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="ovh.geoffrey_druelle.typicodephotos.ui.fragment.details.DetailsFragment"
-        android:label="details_fragment"
-        tools:layout="@layout/details_fragment" />
+        tools:layout="@layout/list_fragment" />
 </navigation>
