@@ -1,3 +1,20 @@
 <resources>
+    <!--    App infos   -->
+    <string name="app_version">Version %s</string>
+
+    <!--    Quit    -->
+    <string name="quit">Quit</string>
+    <string name="press_back">Press Back again to exit.</string>
+
+    <!--    Images  -->
+    <string name="photo_item_thumbnail_desc">Photo item thumbnail</string>
+    <string name="photo_details_image_desc">Photo details image</string>
+
+    <!--    SnackBar messages   -->
+    <string name="net_error">Network error. Continue ?</string>
+    <string name="no_data_no_internet">No data and no internet.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="photos_list">Photos\' list</string>
 
 </resources>
